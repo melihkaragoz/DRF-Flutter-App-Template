@@ -1,7 +1,14 @@
 import 'dart:convert';
+import 'package:intl/intl.dart' as intl;
 import 'package:flutter/material.dart';
 import 'api_client.dart';
 import 'login_page.dart';
+
+enum ValueType {
+  string,
+  date,
+  int,
+}
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -216,15 +223,28 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 24),
                   
                   // Profile Information
-                  _buildInfoRow('User ID', _userProfile!['id'].toString()),
+                  _buildInfoRow('User ID', _userProfile!['id'].toString(), ValueType.string),
                   const SizedBox(height: 12),
-                  _buildInfoRow('Username', _userProfile!['username']),
+                  _buildInfoRow('Username', _userProfile!['username'], ValueType.string),
                   const SizedBox(height: 12),
                   _buildInfoRow(
                     'Email', 
                     _userProfile!['email']?.isEmpty ?? true 
                         ? 'Not provided' 
                         : _userProfile!['email'],
+                    ValueType.string
+                  ),
+                  const SizedBox(height: 12),
+                  _buildInfoRow(
+                    'Daily Login Count', 
+                    _userProfile!['daily_login_count'].toString(),
+                    ValueType.int
+                  ),
+                  const SizedBox(height: 12),
+                  _buildInfoRow(
+                    'Last Login Time', 
+                    _userProfile!['last_login_date'],
+                    ValueType.date
                   ),
                 ],
               ),
@@ -275,7 +295,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildInfoRow(String label, String value) {
+  Widget _buildInfoRow(String label, String value, ValueType type) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -291,7 +311,11 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         Expanded(
           child: Text(
-            value,
+            switch (type) {
+              ValueType.string => value,
+              ValueType.int => value.toString(),
+              ValueType.date => intl.DateFormat('yyyy-MM-dd HH:mm').format(DateTime.parse(value))
+            },
             style: const TextStyle(
               fontSize: 16,
             ),

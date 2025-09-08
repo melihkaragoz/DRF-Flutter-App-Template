@@ -38,6 +38,7 @@ ALLOWED_HOSTS = ['*']  # For development only
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,7 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'channels',
     'users',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -150,4 +153,17 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': True,
+}
+
+# Django Channels
+ASGI_APPLICATION = 'rose.asgi.application'
+
+# Redis Configuration for Channels
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [(env('REDIS_HOST', default='redis'), env('REDIS_PORT', default=6379))],
+        },
+    },
 }

@@ -30,4 +30,6 @@ urlpatterns = [
     path('api/auth/jwt/verify/', TokenVerifyView.as_view(), name='token_verify'),
     # User endpoints
     path('api/users/', include('users.urls')),
+    # Chat endpoints
+    path('api/chat/', include('chat.urls')),
 ]

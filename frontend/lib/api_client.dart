@@ -167,4 +167,13 @@ class ApiClient {
     final accessToken = await _storage.read(key: 'access_token');
     return accessToken != null;
   }
+
+  // Get current user ID from stored profile or token
+  static Future<int?> getCurrentUserId() async {
+    final profileResult = await getProfile();
+    if (profileResult['success']) {
+      return profileResult['data']['id'];
+    }
+    return null;
+  }
 }

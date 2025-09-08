@@ -3,6 +3,7 @@ import 'package:intl/intl.dart' as intl;
 import 'package:flutter/material.dart';
 import 'api_client.dart';
 import 'login_page.dart';
+import 'pages/chat_rooms_page.dart';
 
 enum ValueType {
   string,
@@ -109,6 +110,17 @@ class _ProfilePageState extends State<ProfilePage> {
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ChatRoomsPage(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.chat),
+            tooltip: 'Chat Rooms',
+          ),
           IconButton(
             onPressed: _handleLogout,
             icon: const Icon(Icons.logout),

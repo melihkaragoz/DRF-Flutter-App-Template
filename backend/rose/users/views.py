@@ -1,10 +1,10 @@
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
-from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import UserRegistrationSerializer, UserSerializer
 from .models import UserLoginInformations
+from .utils import get_client_ip
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -27,20 +27,11 @@ def get_user_profile(request):
     """Get current user profile"""
     serializer = UserSerializer(request.user)
     uli = get_user_login_informations(request.user)
-    ip_addr = request.META.get('REMOTE_ADDR')
+    ip_addr = get_client_ip(request)
     uli.increment_daily_login_count(ip_addr)
 
-    print('*' * 50)
-    print(uli.get_last_login_info())
-
     data = dict(serializer.data)
-
-    data.update(
-        uli.get_last_login_info()
-    )
-    print(type(data))
-    print(data)
-    print('*' * 50)
+    data.update(uli.get_last_login_info())
     return Response(data)
 
 

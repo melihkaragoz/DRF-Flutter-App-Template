@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'api_client.dart';
 import 'login_page.dart';
 import 'profile_page.dart';
+import 'constants/app_colors.dart';
 
 void main() {
   runApp(const RoseApp());
@@ -17,7 +18,7 @@ class RoseApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
+          seedColor: AppColors.primary,
           brightness: Brightness.light,
         ),
         useMaterial3: true,
@@ -81,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple,
+      backgroundColor: AppColors.primary,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -104,7 +105,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: const Icon(
                 Icons.local_florist,
                 size: 60,
-                color: Colors.deepPurple,
+                color: AppColors.primary,
               ),
             ),
             const SizedBox(height: 24),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'api_client.dart';
 import 'profile_page.dart';
+import 'constants/app_colors.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -118,9 +119,9 @@ class _LoginPageState extends State<LoginPage> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Colors.deepPurple.shade50,
+              AppColors.primary.withOpacity(0.1),
               Colors.white,
-              Colors.deepPurple.shade50,
+              AppColors.primary.withOpacity(0.1),
             ],
           ),
         ),
@@ -140,13 +141,13 @@ class _LoginPageState extends State<LoginPage> {
                           width: 80,
                           height: 80,
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [Colors.deepPurple, Colors.deepPurple.shade300],
-                            ),
+                          gradient: LinearGradient(
+                            colors: [AppColors.primary, AppColors.primaryLight],
+                          ),
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.deepPurple.withOpacity(0.3),
+                                color: AppColors.primary.withOpacity(0.3),
                                 blurRadius: 20,
                                 offset: const Offset(0, 10),
                               ),
@@ -163,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                           'Rose',
                           style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: Colors.deepPurple,
+                            color: AppColors.primary,
                             letterSpacing: 1.5,
                           ),
                         ),
@@ -176,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                     constraints: const BoxConstraints(maxWidth: 400),
                     child: Card(
                       elevation: 20,
-                      shadowColor: Colors.deepPurple.withOpacity(0.2),
+                      shadowColor: AppColors.primary.withOpacity(0.2),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24),
                       ),
@@ -244,10 +245,10 @@ class _LoginPageState extends State<LoginPage> {
                                       prefixIcon: Container(
                                         margin: const EdgeInsets.all(8),
                                         decoration: BoxDecoration(
-                                          color: Colors.deepPurple.shade50,
+                                          color: AppColors.primary50,
                                           borderRadius: BorderRadius.circular(12),
                                         ),
-                                        child: Icon(Icons.person, color: Colors.deepPurple.shade300),
+                                        child: Icon(Icons.person, color: AppColors.primary300),
                                       ),
                                       filled: true,
                                       fillColor: Colors.white,
@@ -261,7 +262,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(16),
-                                        borderSide: BorderSide(color: Colors.deepPurple.shade300, width: 2),
+                                        borderSide: BorderSide(color: AppColors.primary300, width: 2),
                                       ),
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                                     ),
@@ -295,10 +296,10 @@ class _LoginPageState extends State<LoginPage> {
                                         prefixIcon: Container(
                                           margin: const EdgeInsets.all(8),
                                           decoration: BoxDecoration(
-                                            color: Colors.deepPurple.shade50,
+                                            color: AppColors.primary50,
                                             borderRadius: BorderRadius.circular(12),
                                           ),
-                                          child: Icon(Icons.email, color: Colors.deepPurple.shade300),
+                                          child: Icon(Icons.email, color: AppColors.primary300),
                                         ),
                                         filled: true,
                                         fillColor: Colors.white,
@@ -312,7 +313,7 @@ class _LoginPageState extends State<LoginPage> {
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(16),
-                                          borderSide: BorderSide(color: Colors.deepPurple.shade300, width: 2),
+                                          borderSide: BorderSide(color: AppColors.primary300, width: 2),
                                         ),
                                         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                                       ),
@@ -342,10 +343,10 @@ class _LoginPageState extends State<LoginPage> {
                                       prefixIcon: Container(
                                         margin: const EdgeInsets.all(8),
                                         decoration: BoxDecoration(
-                                          color: Colors.deepPurple.shade50,
+                                          color: AppColors.primary50,
                                           borderRadius: BorderRadius.circular(12),
                                         ),
-                                        child: Icon(Icons.lock, color: Colors.deepPurple.shade300),
+                                        child: Icon(Icons.lock, color: AppColors.primary300),
                                       ),
                                       filled: true,
                                       fillColor: Colors.white,
@@ -359,7 +360,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(16),
-                                        borderSide: BorderSide(color: Colors.deepPurple.shade300, width: 2),
+                                        borderSide: BorderSide(color: AppColors.primary300, width: 2),
                                       ),
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                                     ),
@@ -406,11 +407,11 @@ class _LoginPageState extends State<LoginPage> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(16),
                                     gradient: LinearGradient(
-                                      colors: [Colors.deepPurple, Colors.deepPurple.shade400],
+                                      colors: [AppColors.primary, AppColors.primary400],
                                     ),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.deepPurple.withOpacity(0.3),
+                                        color: AppColors.primary.withOpacity(0.3),
                                         blurRadius: 15,
                                         offset: const Offset(0, 8),
                                       ),
@@ -537,7 +538,7 @@ class _LoginPageState extends State<LoginPage> {
                                     });
                                   },
                                   style: TextButton.styleFrom(
-                                    foregroundColor: Colors.deepPurple.shade600,
+                                    foregroundColor: AppColors.primary600,
                                     padding: const EdgeInsets.symmetric(vertical: 12),
                                   ),
                                   child: Text(

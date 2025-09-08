@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'api_client.dart';
 import 'login_page.dart';
 import 'pages/chat_rooms_page.dart';
+import 'constants/app_colors.dart';
 
 enum ValueType {
   string,
@@ -106,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
           'Profile',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -131,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
       body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(
-                color: Colors.deepPurple,
+                color: AppColors.primary,
               ),
             )
           : _errorMessage != null
@@ -139,7 +140,7 @@ class _ProfilePageState extends State<ProfilePage> {
               : _buildProfileView(),
       floatingActionButton: FloatingActionButton(
         onPressed: _loadProfile,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         tooltip: 'Refresh Profile',
         child: const Icon(Icons.refresh),
@@ -179,7 +180,7 @@ class _ProfilePageState extends State<ProfilePage> {
               icon: const Icon(Icons.refresh),
               label: const Text('Retry'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
+                backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,
               ),
             ),
@@ -212,13 +213,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   // Profile Avatar
                   CircleAvatar(
                     radius: 50,
-                    backgroundColor: Colors.deepPurple[100],
+                    backgroundColor: AppColors.primary100,
                     child: Text(
                       _userProfile!['username'][0].toUpperCase(),
                       style: TextStyle(
                         fontSize: 36,
                         fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple[700],
+                        color: AppColors.primary700,
                       ),
                     ),
                   ),
@@ -229,7 +230,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     'Welcome back!',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Colors.deepPurple,
+                      color: AppColors.primary,
                     ),
                   ),
                   const SizedBox(height: 24),

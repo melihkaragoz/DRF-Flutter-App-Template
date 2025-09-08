@@ -205,6 +205,35 @@ class JoinRoomSerializer(serializers.Serializer):
         return data
 
 
+class JoinRoomByIdSerializer(serializers.Serializer):
+    password = serializers.CharField(required=False, allow_blank=True)
+    
+    def validate(self, data):
+        room = self.context['room']
+        user = self.context['request'].user
+        
+        # Check if room is full
+        if room.is_full:
+            raise serializers.ValidationError("Room is full.")
+        
+        # Check if user is already a participant
+        if room.participants.filter(user=user, is_active=True).exists():
+            raise serializers.ValidationError("You are already a member of this room.")
+        
+        # Check password for protected rooms
+        if room.room_type == 'protected':
+            password = data.get('password')
+            if not password:
+                raise serializers.ValidationError("Password is required for this room.")
+            if not check_password(password, room.password):
+                raise serializers.ValidationError("Invalid password.")
+        
+        # For private rooms joined by ID, no invite is required
+        # This allows joining private rooms if you know the exact room ID
+        
+        return data
+
+
 class ChatRoomInviteSerializer(serializers.ModelSerializer):
     invited_by = UserBasicSerializer(read_only=True)
     invited_user = UserBasicSerializer(read_only=True)

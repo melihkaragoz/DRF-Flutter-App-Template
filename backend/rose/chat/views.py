@@ -11,7 +11,7 @@ from .models import ChatRoom, ChatMessage, ChatParticipant, ChatRoomInvite
 from .serializers import (
     ChatRoomListSerializer, ChatRoomCreateSerializer, ChatRoomDetailSerializer,
     ChatMessageSerializer, ChatMessageCreateSerializer, JoinRoomSerializer,
-    ChatRoomInviteSerializer, CreateInviteSerializer
+    JoinRoomByIdSerializer, ChatRoomInviteSerializer, CreateInviteSerializer
 )
 
 
@@ -268,8 +268,14 @@ def my_rooms(request):
 @permission_classes([permissions.IsAuthenticated])
 def join_room_by_id(request):
     """Join a room by its ID (for private rooms)"""
+    import uuid as uuid_module
+    
+    print("JOIN BY ID REQUEST DATA:", request.data)
+    
     room_id = request.data.get('room_id')
     password = request.data.get('password', '')
+    
+    print(f"Room ID: {room_id}, Password: {password}")
     
     if not room_id:
         return Response(
@@ -277,18 +283,37 @@ def join_room_by_id(request):
             status=status.HTTP_400_BAD_REQUEST
         )
     
+    # Validate UUID format
+    try:
+        uuid_module.UUID(room_id)
+        print("UUID validation passed")
+    except ValueError:
+        print("UUID validation failed")
+        return Response(
+            {'error': 'Invalid room ID format. Please check the room ID and try again.'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
     try:
         room = ChatRoom.objects.get(id=room_id, is_active=True)
+        print(f"Room found: {room.name}, Type: {room.room_type}")
     except ChatRoom.DoesNotExist:
+        print("Room not found")
         return Response(
-            {'error': 'Room not found'},
+            {'error': 'Room not found. Please check the room ID and try again.'},
             status=status.HTTP_404_NOT_FOUND
         )
     
-    serializer = JoinRoomSerializer(
+    serializer = JoinRoomByIdSerializer(
         data={'password': password},
         context={'room': room, 'request': request}
     )
+    
+    print("Serializer validation...")
+    print("Is valid:", serializer.is_valid())
+    if not serializer.is_valid():
+        print("Serializer errors:", serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     if serializer.is_valid():
         # Create or reactivate participant
